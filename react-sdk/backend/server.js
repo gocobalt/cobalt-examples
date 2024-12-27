@@ -1,12 +1,11 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-import cookieParser from "cookie-parser";
+import { API_URL } from "./const.js";
 
 dotenv.config();
 
 const PORT = process.env.PORT || 5000;
-const API_URL = process.env.API_URL;
 const API_KEY = process.env.API_KEY;
 const USER_ID = process.env.USER_ID;
 
@@ -15,12 +14,9 @@ const app = express();
 // Enable CORS for localhost:5173
 const corsOptions = {
   origin: "http://localhost:5173",
-  credentials: true, // Allow credentials (cookies)
+  credentials: true, // Allow credentials (cookies) - can be removed if not needed
 };
 app.use(cors(corsOptions));
-
-// Use cookie-parser middleware
-app.use(cookieParser());
 
 app.use(express.json());
 
@@ -31,8 +27,14 @@ app.get("/", (req, res) => {
   });
 });
 
-// Endpoint to get session token and store it as a cookie
+/**
+ * @route   POST https://api.gocobalt.io/api/v2/public/session-token
+ * @desc    This API generates a session token to authenticate a linked account.
+ * @docs    https://docs.gocobalt.io/api-reference/session-token/generate-token-for-linked-account
+ */
+
 app.get("/api/session-token", async (req, res) => {
+  console.log("user id is", USER_ID);
   try {
     const response = await fetch(`${API_URL}/session-token`, {
       method: "POST",
@@ -47,14 +49,9 @@ app.get("/api/session-token", async (req, res) => {
 
     const data = await response.json();
 
-    if (response.ok) {
-      // Store the session token in a cookie
-      res.cookie("session_token", data.token, {
-        httpOnly: true, // Prevent client-side JavaScript from accessing the cookie
-        secure: process.env.NODE_ENV === "production", // Use secure cookies in production
-        sameSite: "strict", // Prevent CSRF
-      });
+    console.log("token data: ", data);
 
+    if (response.ok) {
       res.status(200).send({
         success: true,
         data,
@@ -74,6 +71,12 @@ app.get("/api/session-token", async (req, res) => {
   }
 });
 
+/**
+ * @route   GET https://api.gocobalt.io/api/v2/public/application
+ * @desc    This API lists all enabled applications for a specific linked account.
+ * @docs    https://docs.gocobalt.io/api-reference/integration-meta/list-applications
+ */
+
 app.post("/api/apps", async (req, res) => {
   try {
     const { token } = req.body;
@@ -88,6 +91,7 @@ app.post("/api/apps", async (req, res) => {
     });
 
     const data = await fetchResponse.json();
+    console.log("app data is: ", data);
     return res.json({
       success: true,
       data,

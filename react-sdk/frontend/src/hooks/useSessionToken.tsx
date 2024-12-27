@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import Cookies from "js-cookie";
 import { BASE_URL } from "../utils/const";
 
 export const useSessionToken = () => {
@@ -18,8 +17,7 @@ export const useSessionToken = () => {
         method: "GET",
       });
       const data = await res.json();
-      setToken(data.token);
-      Cookies.set("sessionToken", data.token, { expires: 1 });
+      setToken(data.data.token);
     } catch (err) {
       console.error("Error fetching session token:", err);
     } finally {
@@ -28,14 +26,7 @@ export const useSessionToken = () => {
   };
 
   useEffect(() => {
-    // Fetch token only if not already present in cookies
-    const existingToken = Cookies.get("sessionToken");
-    if (existingToken) {
-      setToken(existingToken);
-      setIsLoading(false);
-    } else {
-      fetchSessionToken();
-    }
+    fetchSessionToken();
   }, []);
 
   return { token, isLoading };

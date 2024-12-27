@@ -13,6 +13,12 @@ const App = () => {
   const [apps, setApps] = useState([]);
   const [selectedApp, setSelectedApp] = useState(null);
 
+  /**
+   * @route   GET https://api.gocobalt.io/api/v2/public/application
+   * @desc    This API lists all enabled applications for a specific linked account.
+   * @docs    https://docs.gocobalt.io/api-reference/integration-meta/list-applications
+   */
+
   const getApps = async () => {
     try {
       const res = await fetch(`${BASE_URL}/apps`, {
@@ -28,7 +34,7 @@ const App = () => {
       }
 
       const data = await res.json();
-      console.log("data is", data);
+      console.log("data is : ", data);
       setApps(data.data);
     } catch (err) {
       console.error("Error fetching apps:", err);

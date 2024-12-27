@@ -12,7 +12,6 @@
   "dependencies": {
     "@cobaltio/cobalt-js": "^8.5.2",
     "@cobaltio/react-cobalt-js": "^1.0.0-beta.18",
-    "js-cookie": "^3.0.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
