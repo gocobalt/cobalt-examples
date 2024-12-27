@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
-import { API_URL, API_KEY, TEST_USER_ID } from "@/utils/const";
+import { API_URL, API_KEY, LINKED_ACCOUNT_ID } from "@/utils/const";
 
 export const useSessionToken = () => {
   const [token, setToken] = useState<string | null>(null);
@@ -21,7 +21,7 @@ export const useSessionToken = () => {
           "x-api-key": `${API_KEY}`,
         },
         body: JSON.stringify({
-          linked_account_id: `${TEST_USER_ID}`,
+          linked_account_id: `${LINKED_ACCOUNT_ID}`,
         }),
       });
       const data = await res.json();

@@ -1,36 +1,111 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Cobalt SDK Integration - Hosted Portal Method
 
-## Getting Started
+## Overview
+This document provides the necessary steps to integrate the Cobalt Hosted Portal method into your application. The Hosted Portal method allows you to generate a connection URL that can be used for user authentication and data flow with the Cobalt platform.
 
-First, run the development server:
+## API Endpoint
+**POST** `/api/v2/public/connect-url`
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+### Description
+This endpoint returns the connection URL in the format:
+```
+https://connect.gocobalt.io/{TOKEN}
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Headers
+| Header          | Type   | Description                                                                                   |
+|-----------------|--------|-----------------------------------------------------------------------------------------------|
+| Authorization   | string | Unlike other APIs in this documentation, this API requires the session token as a bearer token. Do not include `x-api-key` in the header for this API. |
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+**Example Header:**
+```
+Authorization: Bearer {SESSION_TOKEN}
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Query Parameters
+| Parameter  | Type   | Description                                                                                       |
+|------------|--------|---------------------------------------------------------------------------------------------------|
+| config_id  | string | Config ID to be used for creating the Hosted URL. If the `config_id` is not found, a new config will be created. |
 
-## Learn More
+### Body Parameters
+| Parameter  | Type   | Description                                                                 |
+|------------|--------|-----------------------------------------------------------------------------|
+| color      | string | Text color in HEX format.                                                   |
+| bgColor    | string | Background color in HEX format.                                             |
+| name       | string | Customer name.                                                              |
 
-To learn more about Next.js, take a look at the following resources:
+### Response Description
+| Field       | Type   | Description                                                                 |
+|-------------|--------|-----------------------------------------------------------------------------|
+| hosted_url  | string | The generated Hosted Auth-Flow URL.                                        |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Example Response
+```json
+{
+    "hosted_url": "https://connect.gocobalt.io/abc123xyz"
+}
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Example Code
+```javascript
+const axios = require('axios');
 
-## Deploy on Vercel
+const generateHostedUrl = async () => {
+    const apiUrl = 'https://your-cobalt-api-url/api/v2/public/connect-url';
+    const sessionToken = 'YOUR_SESSION_TOKEN';
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+    const headers = {
+        Authorization: `Bearer ${sessionToken}`,
+    };
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+    const queryParams = {
+        config_id: 'your-config-id',
+    };
+
+    const body = {
+        color: '#FFFFFF',
+        bgColor: '#000000',
+        name: 'Your Customer Name',
+    };
+
+    try {
+        const response = await axios.post(apiUrl, body, { headers, params: queryParams });
+        console.log('Hosted URL:', response.data.hosted_url);
+    } catch (error) {
+        console.error('Error generating hosted URL:', error);
+    }
+};
+
+generateHostedUrl();
+
+```
+For more information, check out the `src/app/page.tsx` file.
+
+## Instructions to Run the Project
+1. Clone the repository and navigate to the `hosted-portal` directory:
+   ```bash
+   cd hosted-portal
+   ```
+2. Install the required dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+## Using the Example Environment Variables
+Refer to the `example.env.txt` file provided in the repository to set up your environment variables. The following placeholders need to be updated with your specific credentials and configurations:
+
+- `NEXT_PUBLIC_API_KEY` - Your API key.
+- `NEXT_PUBLIC_LINKED_ACCOUNT_ID` - Your linked account ID.
+
+### Sample `example.env.txt`
+```
+NEXT_PUBLIC_API_KEY=tkef8652c2-8ea9-4a09-966a-55b60f1c9635
+NEXT_PUBLIC_LINKED_ACCOUNT_ID=sample user4
+```
+
+## Additional Notes
+For more details on using the Cobalt SDK, refer to [Cobalt Docs](https://docs.gocobalt.io/introduction).
