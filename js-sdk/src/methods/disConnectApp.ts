@@ -1,4 +1,3 @@
-// services/disconnect.ts
 export const handleDisconnect = async (
   Cobalt: any,
   slug: string,

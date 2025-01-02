@@ -1,6 +1,5 @@
-// services/connect.ts
 export const handleConnect = async (
-  Cobalt: any, // Pass the Cobalt instance here
+  Cobalt: any,
   slug: string,
   setIsConnected: React.Dispatch<React.SetStateAction<boolean>>
 ) => {

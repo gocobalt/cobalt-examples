@@ -1,6 +1,5 @@
-// services/config.ts
 export const handleConfig = async (
-  Cobalt: any, // Pass the Cobalt instance here
+  Cobalt: any,
   slug: string,
   setConfigInfo: React.Dispatch<React.SetStateAction<any>>, // to update the config info
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>, // to open/close the modal

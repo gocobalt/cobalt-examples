@@ -1,4 +1,3 @@
-// services/config.ts
 import { WorkflowPayload } from "@/types/cobalt";
 
 export const updateConfig = async (

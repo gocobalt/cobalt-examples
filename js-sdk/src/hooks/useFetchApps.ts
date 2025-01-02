@@ -12,7 +12,7 @@ const useFetchApps = () => {
 
   const fetchApps = useCallback(async () => {
     setLoading(true);
-    setError(null); // Reset any previous errors
+    setError(null);
     try {
       if (!Cobalt) {
         throw new Error("Cobalt is not initialized");

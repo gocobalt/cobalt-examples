@@ -178,7 +178,8 @@ const AppScreen = () => {
             {apiActions && apiActions[1] && <InfoCard method={apiActions[1]} />}
             {apiActions && apiActions[2] && <InfoCard method={apiActions[2]} />}
             {apiActions && apiActions[3] && <InfoCard method={apiActions[3]} />}
-            {apiActions && apiActions[3] && <InfoCard method={apiActions[4]} />}
+            {apiActions && apiActions[4] && <InfoCard method={apiActions[4]} />}
+            {apiActions && apiActions[5] && <InfoCard method={apiActions[5]} />}
           </div>
         </div>
       ) : (

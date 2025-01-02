@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Cobalt SDK Integration - JS-SDK Method
 
-## Getting Started
+## Overview
+This document provides the necessary steps to integrate the Cobalt JavaScript SDK into your application. The JavaScript SDK simplifies interactions with the Cobalt platform by providing pre-built methods.
 
-First, run the development server:
+## Starting the Application
+To set up and run the application, follow these steps:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   ```
+
+2. Navigate into the `js-sdk` directory:
+   ```bash
+   cd js-sdk
+   ```
+
+3. Create the `.env` file by referring to the `example.env.txt` file provided in the repository. Update the placeholders with your specific credentials and configurations.
+
+4. Run the application in development mode:
+   ```bash
+   npm run dev
+   ```
+
+5. Open your browser and visit the application at `http://localhost:3000`.
+
+## Using the Example Environment Variables
+Refer to the `example.env.txt` file provided in the repository to set up your environment variables. The following placeholders need to be updated with your specific credentials and configurations:
+
+- `NEXT_PUBLIC_API_KEY` - Your API key.
+- `NEXT_PUBLIC_LINKED_ACCOUNT_ID` - Your linked account ID.
+
+### Sample `example.env.txt`
+```env
+NEXT_PUBLIC_API_KEY=tkef8652c2-8ea9-4a09-966a-55b60f1c9635
+NEXT_PUBLIC_LINKED_ACCOUNT_ID=sample user4
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Additional Notes
+For more details on using the Cobalt SDK, refer to [Cobalt Docs](https://docs.gocobalt.io/introduction).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
