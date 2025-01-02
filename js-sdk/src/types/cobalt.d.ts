@@ -16,3 +16,18 @@ export interface Application {
   slug?: string;
   type: string;
 }
+
+export interface ApiAction {
+  id: number;
+  title: string;
+  links: string[];
+  fileName: string;
+  lineNumber: string;
+  description: string;
+}
+
+interface WorkflowPayload {
+  enabled: boolean;
+  fields: Record<string, string | number | boolean>;
+  id: string;
+}

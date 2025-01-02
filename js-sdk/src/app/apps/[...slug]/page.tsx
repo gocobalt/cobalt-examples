@@ -1,9 +1,10 @@
+import AppScreen from "@/screens/AppScreen";
 import React from "react";
-import HomeScreen from "@/screens/HomeScreen";
+
 const page = () => {
   return (
     <>
-      <HomeScreen />
+      <AppScreen />
     </>
   );
 };
