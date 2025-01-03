@@ -4,12 +4,12 @@
 This document provides the necessary steps to integrate the Cobalt Hosted Portal method into your application. The Hosted Portal method allows you to generate a connection URL that can be used for user authentication and data flow with the Cobalt platform.
 
 ## Using the Example Environment Variables
-Refer to the `example.env.txt` file provided in the repository to set up your environment variables. The following placeholders need to be updated with your specific credentials and configurations:
+Refer to the `.env.example` file provided in the repository to set up your environment variables. The following placeholders need to be updated with your specific credentials and configurations:
 
 - `NEXT_PUBLIC_API_KEY` - Your API key.
 - `NEXT_PUBLIC_LINKED_ACCOUNT_ID` - Your linked account ID.
 
-### Sample `example.env.txt`
+### Sample `.env.example`
 ```
 NEXT_PUBLIC_API_KEY=tkef8652c2-8ea9-4a09-966a-55b60f1c9635
 NEXT_PUBLIC_LINKED_ACCOUNT_ID=sample user4

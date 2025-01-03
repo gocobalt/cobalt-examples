@@ -16,7 +16,19 @@ To set up and run the application, follow these steps:
    cd js-sdk
    ```
 
-3. Create the `.env` file by referring to the `example.env.txt` file provided in the repository. Update the placeholders with your specific credentials and configurations.
+3. Create the `.env` file by referring to the `.env.example` file provided in the repository. Update the placeholders with your specific credentials and configurations.
+
+## Using the Example Environment Variables
+Refer to the `.env.example` file provided in the repository to set up your environment variables. The following placeholders need to be updated with your specific credentials and configurations:
+
+- `NEXT_PUBLIC_API_KEY` - Your API key.
+- `NEXT_PUBLIC_LINKED_ACCOUNT_ID` - Your linked account ID.
+
+### Sample `.env.example`
+```env
+NEXT_PUBLIC_API_KEY=tkef8652c2-8ea9-4a09-966a-55b60f1c9635
+NEXT_PUBLIC_LINKED_ACCOUNT_ID=sample user4
+```
 
 4. Run the application in development mode:
    ```bash
@@ -25,17 +37,7 @@ To set up and run the application, follow these steps:
 
 5. Open your browser and visit the application at `http://localhost:3000`.
 
-## Using the Example Environment Variables
-Refer to the `example.env.txt` file provided in the repository to set up your environment variables. The following placeholders need to be updated with your specific credentials and configurations:
 
-- `NEXT_PUBLIC_API_KEY` - Your API key.
-- `NEXT_PUBLIC_LINKED_ACCOUNT_ID` - Your linked account ID.
-
-### Sample `example.env.txt`
-```env
-NEXT_PUBLIC_API_KEY=tkef8652c2-8ea9-4a09-966a-55b60f1c9635
-NEXT_PUBLIC_LINKED_ACCOUNT_ID=sample user4
-```
 
 ## Additional Notes
 For more details on using the Cobalt SDK, refer to [Cobalt Docs](https://docs.gocobalt.io/introduction).

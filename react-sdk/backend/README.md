@@ -25,7 +25,7 @@ This project demonstrates the integration of the Cobalt platform into a React ap
    cd backend
    ```
 
- 3. Environment variables: Refer to the env.example.txt in the backend folder
+ 3. Environment variables: Refer to the .env.example in the backend folder
    ```env
    API_KEY =tkef8652c2-8ea9-4a09-966a-55b60f1c9635
    USER_ID =Sample User 3
