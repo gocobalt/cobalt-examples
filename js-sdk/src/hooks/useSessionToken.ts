@@ -1,3 +1,4 @@
+"use client";
 import { useState, useEffect } from "react";
 import { API_URL, API_KEY, LINKED_ACCOUNT_ID } from "@/utils/const";
 
@@ -33,8 +34,13 @@ export const useSessionToken = () => {
   };
 
   useEffect(() => {
-    fetchSessionToken();
-  }, []);
+    // Fetch token only if not already present in state
+    if (!token) {
+      fetchSessionToken();
+    } else {
+      setIsLoading(false);
+    }
+  }, [token]);
 
   return { token, isLoading };
 };
