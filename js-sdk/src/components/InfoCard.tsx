@@ -21,7 +21,15 @@ const InfoCard: React.FC<InfoCardProps> = ({ method }) => {
           <div className="mt-4">
             <h4 className="font-semibold text-sm">File Reference:</h4>
             <p className="font-mono text-xs">
-              {method.fileName} (Line {method.lineNumber})
+              <a
+                href={method.fileName}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-500 hover:underline"
+              >
+                {method.fileName}
+              </a>
+              (Line {method.lineNumber})
             </p>
           </div>
           <div className="mt-4">
