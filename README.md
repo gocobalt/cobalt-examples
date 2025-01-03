@@ -2,17 +2,6 @@
 
 This repository contains examples to perform integrations with the Cobalt platform. It follows a monorepo structure and includes four integration methods, detailed below.
 
-## Reference Documentation
-
-Welcome to the official Cobalt SDK Documentation. This resource serves as a comprehensive guide to harnessing the power of Cobalt’s SDKs for seamless integration and native experiences within your applications. Our SDKs are tailored to various programming languages, offering you a versatile toolkit to:
-
-- Create dynamic interactions.
-- Manage authentication.
-- Interact with third-party applications.
-- Handle end-user configuration.
-- Elevate user experiences.
-
-Within this documentation, you’ll find each object and method provided by Cobalt’s SDKs. Cobalt offers native SDKs for both client-side and server-side implementations.
 
 ## Integration Methods
 
@@ -25,11 +14,9 @@ To test the Hosted-Portal method:
 
 2. In the `hosted-portal` folder, create a `.env` file with the following variables:
    ```env
-   NEXT_PUBLIC_API_URL=<your_api_url>
-   NEXT_PUBLIC_API_KEY=<your_api_key>
-   NEXT_PUBLIC_BASE_URL=<your_base_url>
-   NEXT_PUBLIC_TEST_USER_ID=<your_user_id>
-   ```
+   NEXT_PUBLIC_API_KEY=tkef8652c2-8ea9-4a09-966a-55b60f1c9635
+   NEXT_PUBLIC_LINKED_ACCOUNT_ID=sample_user4
+
 
 3. Install dependencies:
    ```bash
@@ -52,11 +39,8 @@ To test the JS-SDK method:
 
 2. In the `js-sdk` folder, create a `.env` file with the following variables:
    ```env
-   NEXT_PUBLIC_API_URL=<your_api_url>
-   NEXT_PUBLIC_API_KEY=<your_api_key>
-   NEXT_PUBLIC_BASE_URL=<your_base_url>
-   NEXT_PUBLIC_TEST_USER_ID=<your_user_id>
-   ```
+   NEXT_PUBLIC_API_KEY=tkef8652c2-8ea9-4a09-966a-55b60f1c9635
+   NEXT_PUBLIC_LINKED_ACCOUNT_ID=sample_user4
 
 3. Install dependencies:
    ```bash
@@ -84,12 +68,11 @@ To test the React-SDK method:
 
 3. Create a `.env` file with the following variables:
    ```env
-   API_URL=<your_api_url>
-   API_KEY=<your_api_key>
-   USER_ID=<your_user_id>
-   BASE_URL=<your_base_url>
-   PORT=<your_port>
-   ```
+   API_KEY=tkef8652c2-8ea9-4a09-966a-55b60f1c9635
+   USER_ID=sample_user4
+   PORT=5000
+
+   
 
 4. Install backend dependencies:
    ```bash
@@ -120,3 +103,6 @@ To test the React-SDK method:
    ```bash
    npm run dev
    
+
+## Additional Notes
+For more details on using the Cobalt SDK, refer to [Cobalt Docs](https://docs.gocobalt.io/introduction).
