@@ -1,3 +1,14 @@
+/**
+ * Retrieves the list of enabled applications and their details.
+ *
+ * @returns {Promise<Application[]>} A promise that resolves to an array of enabled applications and their details.
+ *
+ * @example
+ * // Example of retrieving the list of enabled applications
+ * const applications = await Cobalt.getApp();
+ * console.log(applications);
+ */
+
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
