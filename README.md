@@ -1,4 +1,4 @@
-# Cobalt-Example-Test
+# Cobalt-Example
 
 This repository contains examples to perform integrations with the Cobalt platform. It follows a monorepo structure and includes four integration methods, detailed below.
 
