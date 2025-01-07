@@ -3,6 +3,11 @@
 ## Overview
 This document provides the necessary steps to integrate the Cobalt Hosted Portal method into your application. The Hosted Portal method allows you to generate a connection URL that can be used for user authentication and data flow with the Cobalt platform.
 
+## Prerequisites
+Before you can run the examples in this repository you would need to have the following:
+- [Node.js](https://nodejs.org/en/download) > 18
+- `npm` or `yarn` (should be automatically installed with Node.js)
+
 ## Using the Example Environment Variables
 Refer to the `.env.example` file provided in the repository to set up your environment variables. The following placeholders need to be updated with your specific credentials and configurations:
 
