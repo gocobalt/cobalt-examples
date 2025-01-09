@@ -60,7 +60,7 @@ const App = () => {
         {/* Modal to show when an app is selected */}
         <Modal isOpen={!!selectedApp} onClose={() => setSelectedApp(null)}>
           <CobaltProvider
-            baseApi="https://sapis.gocobalt.io"
+            baseApi="https://api.gocobalt.io"
             sessionToken={token}
           >
             <div className="p-4">

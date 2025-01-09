@@ -12,7 +12,7 @@ const HostedPortalScreen = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
 
   /**
-   * @route   POST /https://sapis.gocobalt.io/api/v2/public/connect-url
+   * @route   POST /https://api.gocobalt.io/api/v2/public/connect-url
    * @desc    Create a Hosted URL
    * @docs    https://docs.gocobalt.io/api-reference/cobalt-connect/get-connect-url
    */
