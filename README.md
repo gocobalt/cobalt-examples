@@ -2,6 +2,10 @@
 
 This repository contains examples to perform integrations with the Cobalt platform. It follows a monorepo structure and includes four integration methods, detailed below.
 
+## Prerequisites
+Before you can run the examples in this repository you would need to have the following:
+- [Node.js](https://nodejs.org/en/download) > 18
+- `npm` or `yarn` (should be automatically installed with Node.js)
 
 ## Integration Methods
 

@@ -3,6 +3,11 @@
 ## Overview
 This document provides the necessary steps to integrate the Cobalt JavaScript SDK into your application. The JavaScript SDK simplifies interactions with the Cobalt platform by providing pre-built methods.
 
+## Prerequisites
+Before you can run the examples in this repository you would need to have the following:
+- [Node.js](https://nodejs.org/en/download) > 18
+- `npm` or `yarn` (should be automatically installed with Node.js)
+
 ## Starting the Application
 To set up and run the application, follow these steps:
 
