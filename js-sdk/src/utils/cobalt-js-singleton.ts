@@ -9,7 +9,7 @@ class CobaltJsSingleton {
     if (!CobaltJsSingleton.instance) {
       CobaltJsSingleton.instance = new Cobalt({
         token,
-        baseUrl: "https://sapis.gocobalt.io",
+        baseUrl: "https://api.gocobalt.io",
       });
     }
   }
