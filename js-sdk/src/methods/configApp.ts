@@ -11,24 +11,27 @@
  * const config = await Cobalt.config({ slug: 'my-app' });
  */
 
-export const handleConfig = async (
-  Cobalt: any,
-  slug: string,
-  setConfigInfo: React.Dispatch<React.SetStateAction<any>>, // to update the config info
-  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>, // to open/close the modal
-  setIsConfigRunning: React.Dispatch<React.SetStateAction<boolean>> // to track config loading status
-) => {
-  setIsModalOpen(true);
-  setIsConfigRunning(true);
+import { Config } from "@/components/Config/types";
+import { Cobalt } from "@cobaltio/cobalt-js";
 
+export const handleConfig = async (
+  cobalt: Cobalt,
+  slug: string,
+  onFetch: (config: Config) => void,
+  onError: () => void,
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>
+) => {
+  setLoading(true)
   try {
-    const res = await Cobalt.config({ slug });
-    if (res) {
-      setConfigInfo(res);
+    const res = await cobalt.config({ slug, labels: [] });
+    if (res && typeof(onFetch) === 'function') {
+      onFetch(res);
     }
   } catch (err) {
     console.error("Config failed:", err);
+    if (typeof(onError) === 'function') onError()
   } finally {
-    setIsConfigRunning(false);
+    if (typeof(setLoading) === 'function')
+    setLoading(false);
   }
 };

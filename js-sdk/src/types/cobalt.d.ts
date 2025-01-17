@@ -30,4 +30,6 @@ interface WorkflowPayload {
   enabled: boolean;
   fields: Record<string, string | number | boolean>;
   id: string;
+  name?: string;
+  description?: string;
 }

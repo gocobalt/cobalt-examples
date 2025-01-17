@@ -5,7 +5,7 @@
  *
  * @example
  * // Example of retrieving the list of all enabled applications, including ecosystem apps
- * const apps = await Cobalt.getApps();
+ * const apps = await cobalt.getApps();
  * console.log(apps);
  */
 
@@ -16,8 +16,8 @@ import useCobalt from "@/hooks/useCobalt";
 import { Application } from "@/types/cobalt";
 
 const useFetchApps = () => {
-  // Destructuring Cobalt instance from custom hook
-  const { Cobalt } = useCobalt();
+  // Destructuring cobalt instance from custom hook
+  const { cobalt } = useCobalt();
 
   // State to store the fetched applications
   const [apps, setApps] = useState<Application[]>([]);
@@ -29,7 +29,7 @@ const useFetchApps = () => {
   const [error, setError] = useState<string | null>(null);
 
   /**
-   * Function to fetch applications using Cobalt.getApps().
+   * Function to fetch applications using cobalt.getApps().
    * Sets loading state, handles success and error cases, and updates state accordingly.
    */
   const fetchApps = useCallback(async () => {
@@ -37,13 +37,13 @@ const useFetchApps = () => {
     setError(null); // Reset previous error
 
     try {
-      // Check if Cobalt is initialized before making a request
-      if (!Cobalt) {
+      // Check if cobalt is initialized before making a request
+      if (!cobalt) {
         throw new Error("Cobalt is not initialized");
       }
 
       // Fetch applications using the Cobalt SDK
-      const res = await Cobalt.getApps();
+      const res = await cobalt.getApps();
       setApps(res); // Update state with the fetched applications
     } catch (err: any) {
       // Handle any errors that occur during fetch
@@ -52,16 +52,16 @@ const useFetchApps = () => {
     } finally {
       setLoading(false); // End loading state
     }
-  }, [Cobalt]); // Dependency array to re-create fetchApps only when Cobalt changes
+  }, [cobalt]); // Dependency array to re-create fetchApps only when cobalt changes
 
   /**
-   * Fetch applications on component mount or when Cobalt instance is available.
+   * Fetch applications on component mount or when cobalt instance is available.
    */
   useEffect(() => {
-    if (Cobalt) {
-      fetchApps(); // Fetch apps when Cobalt is initialized
+    if (cobalt) {
+      fetchApps(); // Fetch apps when cobalt is initialized
     }
-  }, [Cobalt, fetchApps]); // Run useEffect again if Cobalt or fetchApps changes
+  }, [cobalt, fetchApps]); // Run useEffect again if cobalt or fetchApps changes
 
   // Return the state variables and the refetch function
   return { apps, loading, error, refetch: fetchApps };
