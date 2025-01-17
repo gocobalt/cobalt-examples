@@ -8,7 +8,7 @@
  * If the config does not exist, a new one is created and returned.
  *
  * Example usage:
- * const config = await Cobalt.config({ slug: 'my-app' });
+ * const config = await cobalt.config({ slug: 'my-app' });
  */
 
 import { Config } from "@/components/Config/types";
