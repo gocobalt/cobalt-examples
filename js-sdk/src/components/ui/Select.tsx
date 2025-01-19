@@ -2,7 +2,7 @@ import React from 'react';
 import Select, { MultiValue, SingleValue } from 'react-select';
 
 interface Option {
-    value: string | number;
+    value: string | number | boolean;
     label: string;
 }
 

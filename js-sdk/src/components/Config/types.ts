@@ -1,33 +1,4 @@
-import { MappingConfig } from "../Field/types";
-
-export interface ConfigProps {
-    slug: string;
-    id: string;
-    labels?: Record<string, string>;
-    style?: React.CSSProperties;
-    removeBranding?: boolean;
-}
-
-export interface Application {
-    name: string;
-    description?: string;
-    icon: string;
-    connected: boolean;
-    reauth_required?: boolean;
-    help?: string;
-    auth_input_map?: AuthInputField[];
-}
-
-export interface AuthInputField {
-    name: string;
-    type: string;
-    required: boolean;
-    multiple?: boolean;
-    label: string;
-    help_text?: string;
-    placeholder?: string;
-    options?: Array<{ name: string; value: string | number }>;
-}
+import { MappingConfig, RuleColumn } from "../Field/types";
 
 export interface Workflow {
     id: string;
@@ -49,6 +20,7 @@ export interface DataSlot {
     labels?: Array<{ name: string; value: string; multiple?: boolean }>;
     value?: any;
     mapping?: MappingConfig;
+    rule_columns?: Record<string, RuleColumn>;
 }
 
 export interface Config {
