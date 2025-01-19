@@ -15,6 +15,9 @@ const Field: React.FC<FieldProps> = ({
     onChange,
     // map field
     mapping,
+    // rule props
+    ruleColumns,
+    onLHSChange,
 }) => (
     <div className="flex flex-col gap-4">
         <div className="flex flex-col gap-1">
@@ -29,7 +32,7 @@ const Field: React.FC<FieldProps> = ({
                 <span className="text-sm text-gray-600">{description}</span>
             )}
         </div>
-        
+
         <DataSlot
             type={type}
             placeholder={placeholder}
@@ -39,7 +42,10 @@ const Field: React.FC<FieldProps> = ({
             value={value}
             onChange={onChange}
             // map field
-            mapping={ mapping }
+            mapping={mapping}
+            // rule props
+            ruleColumns={ruleColumns}
+            onLHSChange={onLHSChange}
         />
     </div>
 );

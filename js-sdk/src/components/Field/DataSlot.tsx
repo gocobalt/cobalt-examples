@@ -2,6 +2,7 @@ import React from 'react';
 import { DataSlotProps, Option } from './types';
 import Select from './../ui/Select';
 import FieldMapping from './FieldMapping';
+import Rules from './Rules';
 
 const formatOptions = (options: Option[]) =>
     options.map(opt => ({
@@ -17,7 +18,11 @@ const DataSlot: React.FC<DataSlotProps> = ({
     labels,
     value,
     onChange,
-    mapping
+    // map field prop
+    mapping,
+    // rule props
+    ruleColumns,
+    onLHSChange,
 }) => {
     
     // Handles map config fields
@@ -27,6 +32,20 @@ const DataSlot: React.FC<DataSlotProps> = ({
                 mapping={ mapping }
                 value={ value }
                 onChange={ onChange }
+            />
+        );
+    }
+
+    // Handles rule_engine field
+    if (type === "rule_engine") {
+        return (
+            <Rules
+                logic={value?.logic}
+                conditions={value?.conditions}
+                onChange={(k, v) => onChange({ ...value, [k]: v })}
+                options={options}
+                ruleColumns={ruleColumns}
+                onLHSChange={onLHSChange}
             />
         );
     }

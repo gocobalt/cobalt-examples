@@ -19,19 +19,19 @@ const ConfigContainer = ({
   setIsConnected: React.Dispatch<React.SetStateAction<boolean>>,
   closeModal: () => void,
 }) => {
-  const [ loading, setLoading ] = useState(false);
-  const [ error, setError ] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   // State to manage config
-  const [ config, setConfig ] = useState<Config>({});
+  const [config, setConfig] = useState<Config>({});
   // State to manage App config fields
-  const [ appInputData, setAppInputData ] = useState<{
-    [key: string] : any
+  const [appInputData, setAppInputData] = useState<{
+    [key: string]: any
   }>({});
   // State to manage Workflow fields
-  const [ workflowsInputData, setWorkflowsInputData ] = useState<{[key: string]: any}>({});
+  const [workflowsInputData, setWorkflowsInputData] = useState<{ [key: string]: any }>({});
   // State to keep enabled workflow ids
-  const [ enabledWorkflows, setEnabledWorkflows ] = useState<string[]>([]);
+  const [enabledWorkflows, setEnabledWorkflows] = useState<string[]>([]);
 
   const onDisconnect = () => {
     setIsConnected(false)
@@ -49,13 +49,53 @@ const ConfigContainer = ({
     }
   };
 
+  const getRuleOptions = (
+    lhs: string | undefined,
+    fieldId: string | undefined,
+    workflowId?: string
+  ) => {
+    if (!lhs) return;
+    if (!fieldId) return;
+
+    cobalt.getFieldOptions(lhs, app.slug!, fieldId, workflowId)
+      .then(res => {
+        const newConfig = { ...config };
+
+        if (workflowId) {
+          const workflowIndex = newConfig.workflows?.findIndex(wf => wf.id === workflowId);
+          if (workflowIndex && newConfig.workflows) {
+            const fieldIndex = newConfig.workflows?.[workflowIndex]?.fields?.findIndex(f => f.id === fieldId);
+            newConfig.workflows[workflowIndex].fields[fieldIndex] = {
+              ...newConfig.workflows?.[workflowIndex].fields?.[fieldIndex],
+              rule_columns: {
+                ...newConfig.workflows?.[workflowIndex].fields?.[fieldIndex]?.rule_columns,
+                [lhs]: res.rule_column,
+              },
+            };
+          }
+        } else {
+          const fieldIndex = newConfig.fields?.findIndex(f => f.id === fieldId);
+          if (fieldIndex && newConfig.fields) {
+            newConfig.fields[fieldIndex] = {
+              ...newConfig.fields[fieldIndex],
+              rule_columns: {
+                ...newConfig.fields?.[fieldIndex]?.rule_columns,
+                [lhs]: res.rule_column,
+              },
+            };
+          }
+        }
+        setConfig(newConfig);
+      })
+      .catch(console.error);
+  };
+
   const updateConfiguration = () => {
     const workflowPayload = config?.workflows?.map(workflow => ({
       id: workflow.id,
       enabled: enabledWorkflows.includes(workflow.id),
       fields: workflowsInputData[workflow.id] || [],
     })) || []
-  
     if (cobalt && app) {
       updateConfig(
         cobalt,
@@ -93,7 +133,7 @@ const ConfigContainer = ({
   };
 
   useEffect(() => {
-     if (!Object.keys(config).length) return
+    if (!Object.keys(config).length) return
     const appDataSlots: { [key: string]: any } = {};
     for (const ds of config?.fields || []) {
       if (typeof ds.value !== "undefined") {
@@ -102,8 +142,8 @@ const ConfigContainer = ({
     }
     setAppInputData(appDataSlots);
 
-    const workflowDataSlots: {[key: string]: any} = {};
-    const enabledWorkflows : string[] = [];
+    const workflowDataSlots: { [key: string]: any } = {};
+    const enabledWorkflows: string[] = [];
     for (const workflow of config?.workflows || []) {
       if (!(workflow.id in workflowDataSlots)) {
         workflowDataSlots[workflow.id] = {};
@@ -133,7 +173,7 @@ const ConfigContainer = ({
   }
 
   return <>
-    {error && <Error message={error} onClose={() => setError(null)}/>}
+    {error && <Error message={error} onClose={() => setError(null)} />}
 
     {/* Connection Info */}
     {<div className="flex justify-between items-center border-2 mb-4 border-green-500 p-2 rounded-lg">
@@ -165,7 +205,11 @@ const ConfigContainer = ({
             labels={dataslot.labels}
             value={typeof appInputData?.[dataslot.id] !== "undefined" ? appInputData[dataslot.id] : ""}
             onChange={value => setAppInputData({ ...appInputData, [dataslot.id]: value })}
+            // map field props
             mapping={dataslot.mapping}
+            // rule props
+            ruleColumns={dataslot.rule_columns}
+            onLHSChange={lhs => getRuleOptions(lhs, dataslot.id)}
           />
         )
       )
@@ -205,6 +249,9 @@ const ConfigContainer = ({
                     },
                   });
                 }}
+                mapping={dataslot.mapping}
+                ruleColumns={dataslot.rule_columns}
+                onLHSChange={lhs => getRuleOptions(lhs, dataslot.id, workflow.id)}
               />
             )
           }

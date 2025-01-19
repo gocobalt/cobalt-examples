@@ -1,11 +1,6 @@
 export interface Option {
     name: string;
-    value: string | number;
-}
-
-export interface Label {
-    name: string;
-    value: string;
+    value: string | number | boolean;
     multiple?: boolean;
 }
 
@@ -23,10 +18,12 @@ export interface DataSlotProps {
     placeholder?: string;
     multiple?: boolean;
     options?: Option[];
-    labels?: Label[];
+    labels?: Option[]
     value: any;
     onChange: (value: any) => void;
-    mapping?: MappingConfig
+    mapping?: MappingConfig;
+    ruleColumns?: Record<string, RuleColumn>;
+    onLHSChange?: (value: string) => void;
 }
 
 export interface FieldProps {
@@ -35,12 +32,14 @@ export interface FieldProps {
     description?: string;
     placeholder?: string;
     options?: Option[];
-    labels?: Label[];
+    labels?: Option[];
     required?: boolean;
     multiple?: boolean;
     value: any;
     onChange: (value: any) => void;
     mapping?: MappingConfig;
+    ruleColumns?: Record<string, RuleColumn>;
+    onLHSChange?: (value: string) => void;
 }
 
 export interface MappingOption {
@@ -63,4 +62,37 @@ export interface FieldMappingProps {
     mapping: MappingConfig;
     value: Record<string, any>;
     onChange?: (value: Record<string, any>) => void;
+}
+
+
+export interface RuleColumn {
+    rhs: {
+        name: string;
+        type: "text" | "select";
+        options?: Option[];
+    };
+    operator: {
+        name: string;
+        type: "select";
+        options: Option[];
+    };
+}
+
+export interface Condition {
+    logic?: string;
+    conditions?: Condition[];
+    lhs?: string;
+    operator?: string;
+    rhs?: string;
+    type?: string;
+}
+
+export interface RulesProps {
+    level?: number;
+    logic?: string;
+    conditions?: Condition[];
+    onChange: (key: string, value: any) => void;
+    ruleColumns?: Record<string, RuleColumn>;
+    onLHSChange?: (value: string) => void;
+    options?: Option[];
 }
