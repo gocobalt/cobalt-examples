@@ -14,7 +14,6 @@ const RuleInputs: React.FC<{
 }> = ({ condition, ruleColumns, options, onUpdate, onLHSChange, onDelete }) => {
     const handleLHSChange = (value: string) => {
         onUpdate('lhs', value);
-        onLHSChange?.(value);
     };
 
     const getOperatorOptions = () => {
@@ -32,11 +31,13 @@ const RuleInputs: React.FC<{
                 options={options.map(o => ({ value: o.value, label: o.name }))}
                 value={condition.lhs}
                 onChange={handleLHSChange}
+                onMenuOpen={() => condition.lhs && onLHSChange && onLHSChange(condition.lhs)}
                 placeholder="Field"
                 className="flex-[3]"
             />
             <Select
                 options={getOperatorOptions()}
+                onMenuOpen={() => condition.lhs && onLHSChange && onLHSChange(condition.lhs)}
                 value={condition.operator}
                 onChange={(value) => onUpdate('operator', value)}
                 placeholder="Operator"
@@ -46,6 +47,7 @@ const RuleInputs: React.FC<{
                 condition={condition}
                 ruleColumns={ruleColumns}
                 onUpdate={onUpdate}
+                onMenuOpen={() => condition.lhs && onLHSChange && onLHSChange(condition.lhs)}
             />
             <DeleteButton onDelete={onDelete} />
         </div>

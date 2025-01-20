@@ -10,6 +10,7 @@ interface CustomSelectProps {
     options: Option[];
     value: any;
     onChange: (value: any) => void;
+    onMenuOpen?: () => void
     placeholder?: string;
     isMulti?: boolean;
     className?: string;
@@ -40,7 +41,8 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
     isMulti,
     className,
     isDisabled,
-    defaultValue
+    defaultValue,
+    onMenuOpen
 }) => {
     const handleChange = (
         selectedOption: MultiValue<Option> | SingleValue<Option>
@@ -67,6 +69,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
             placeholder={placeholder}
             isMulti={isMulti}
             isDisabled={isDisabled}
+            onMenuOpen={onMenuOpen}
         />
     );
 };

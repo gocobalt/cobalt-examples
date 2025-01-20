@@ -5,18 +5,21 @@ const RuleValueInput: React.FC<{
     condition: Condition;
     ruleColumns: Record<string, RuleColumn>;
     onUpdate: (field: string, value: any, type?: string) => void;
-}> = ({ condition, ruleColumns, onUpdate }) => {
+    onMenuOpen: () => void
+}> = ({ condition, ruleColumns, onUpdate, onMenuOpen }) => {
     const inputType = condition.lhs && (ruleColumns?.[condition.lhs]?.rhs?.type || condition.type);
 
     if (inputType === "select") {
         return (
             <Select
-                options={condition.lhs && ruleColumns?.[condition.lhs]?.rhs?.options?.map(o => ({
+                options={(condition.lhs && ruleColumns?.[condition.lhs]?.rhs?.options?.length ?
+                     ruleColumns?.[condition.lhs]?.rhs?.options?.map(o => ({
                     value: o.value,
                     label: o.name,
-                })) || []}
+                })) : [{label: condition.rhs || '', value: condition.rhs || ''}]) ?? []}
                 value={condition.rhs}
                 onChange={(value) => onUpdate('rhs', value, inputType)}
+                onMenuOpen={onMenuOpen}
                 placeholder="Value"
                 className="flex-[3]"
             />
