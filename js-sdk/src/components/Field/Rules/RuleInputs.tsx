@@ -18,7 +18,9 @@ const RuleInputs: React.FC<{
     };
 
     const getOperatorOptions = () => {
-        return condition.lhs && ruleColumns?.[condition.lhs]?.operator?.options?.map(o => ({
+        return condition.lhs &&
+        ruleColumns?.[condition.lhs]?.operator?.options?.length && 
+        ruleColumns?.[condition.lhs]?.operator?.options?.map(o => ({
             value: o.value,
             label: o.name,
         })) || DEFAULT_OPERATORS;

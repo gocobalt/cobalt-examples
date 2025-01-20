@@ -13,7 +13,7 @@ const ConfigContainer = ({
   cobalt,
   closeModal,
   setIsConnected
-} : {
+}: {
   app: Application,
   cobalt: Cobalt,
   setIsConnected: React.Dispatch<React.SetStateAction<boolean>>,
@@ -63,7 +63,7 @@ const ConfigContainer = ({
 
         if (workflowId) {
           const workflowIndex = newConfig.workflows?.findIndex(wf => wf.id === workflowId);
-          if (workflowIndex && newConfig.workflows) {
+          if (typeof workflowIndex === 'number' && workflowIndex !== -1 && newConfig.workflows) {
             const fieldIndex = newConfig.workflows?.[workflowIndex]?.fields?.findIndex(f => f.id === fieldId);
             newConfig.workflows[workflowIndex].fields[fieldIndex] = {
               ...newConfig.workflows?.[workflowIndex].fields?.[fieldIndex],
@@ -75,7 +75,7 @@ const ConfigContainer = ({
           }
         } else {
           const fieldIndex = newConfig.fields?.findIndex(f => f.id === fieldId);
-          if (fieldIndex && newConfig.fields) {
+          if (typeof fieldIndex === 'number' && fieldIndex !== -1 && newConfig.fields) {
             newConfig.fields[fieldIndex] = {
               ...newConfig.fields[fieldIndex],
               rule_columns: {
@@ -120,19 +120,7 @@ const ConfigContainer = ({
     }
   };
 
-  const fetchConfig = () => {
-    if (cobalt && app) {
-      handleConfig(
-        cobalt,
-        app.slug!,
-        (config) => setConfig(config),
-        () => setError('Error fetching config...'),
-        setLoading
-      );
-    }
-  };
-
-  useEffect(() => {
+  const populateInputFields = (config: Config) => {
     if (!Object.keys(config).length) return
     const appDataSlots: { [key: string]: any } = {};
     for (const ds of config?.fields || []) {
@@ -161,7 +149,22 @@ const ConfigContainer = ({
     }
     setWorkflowsInputData(workflowDataSlots);
     setEnabledWorkflows(enabledWorkflows);
-  }, [config]);
+  }
+
+  const fetchConfig = () => {
+    if (cobalt && app) {
+      handleConfig(
+        cobalt,
+        app.slug!,
+        config => {
+          setConfig(config)
+          populateInputFields(config)
+        },
+        () => setError('Error fetching config...'),
+        setLoading
+      );
+    }
+  };
 
   useEffect(() => {
     // Fetch config when component mounts or app changes
