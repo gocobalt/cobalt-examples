@@ -3,10 +3,11 @@
 import { useEffect, useState } from "react";
 import CobaltJsSingleton from "../utils/cobalt-js-singleton";
 import { useSessionToken } from "@/hooks/useSessionToken";
+import { Cobalt } from "@cobaltio/cobalt-js";
 
 const useCobalt = () => {
   const { token, isLoading } = useSessionToken(); // Fetch the session token
-  const [Cobalt, setCobalt] = useState(null);
+  const [ cobalt, setCobalt ] = useState<Cobalt | null>(null);
 
   useEffect(() => {
     if (token) {
@@ -17,7 +18,7 @@ const useCobalt = () => {
     }
   }, [token]);
 
-  return { Cobalt, isLoading };
+  return { cobalt, isLoading };
 };
 
 export default useCobalt;

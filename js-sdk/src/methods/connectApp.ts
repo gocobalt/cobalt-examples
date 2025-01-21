@@ -8,24 +8,27 @@
  *
  * @example
  * // Example of connecting to an application without auth data
- * const isConnected = await Cobalt.connect('my-app');
+ * const isConnected = await cobalt.connect('my-app');
  *
  * // Example of connecting to an application with authentication data
  * const authData = { user: 'username', pass: 'password' };
- * const isConnectedWithAuth = await Cobalt.connect('my-app', authData);
+ * const isConnectedWithAuth = await cobalt.connect('my-app', authData);
  */
 
+import { Cobalt } from "@cobaltio/cobalt-js";
+
 export const handleConnect = async (
-  Cobalt: any,
+  cobalt: Cobalt,
   slug: string,
-  setIsConnected: React.Dispatch<React.SetStateAction<boolean>>
+  inputData: any,
+  onConnect: () => void
 ) => {
   try {
-    const res = await Cobalt.connect(slug);
+    const res = await cobalt.connect(slug, inputData);
     if (res) {
       console.log(res);
       if (res === true) {
-        setIsConnected(true);
+        onConnect()
       }
     }
   } catch (err) {

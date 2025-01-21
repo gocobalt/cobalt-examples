@@ -5,7 +5,7 @@
  *
  * @example
  * // Example of retrieving the list of enabled applications
- * const applications = await Cobalt.getApp();
+ * const applications = await cobalt.getApp();
  * console.log(applications);
  */
 
@@ -16,7 +16,7 @@ import useCobalt from "@/hooks/useCobalt";
 import { Application } from "@/types/cobalt";
 
 const useFetchSingleApp = (slug: string) => {
-  const { Cobalt } = useCobalt();
+  const { cobalt } = useCobalt();
   const [app, setApp] = useState<Application | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -28,11 +28,11 @@ const useFetchSingleApp = (slug: string) => {
     setError(null);
 
     try {
-      if (!Cobalt) {
-        throw new Error("Cobalt is not initialized");
+      if (!cobalt) {
+        throw new Error("cobalt is not initialized");
       }
 
-      const res: Application = await Cobalt.getApp(slug); // Explicitly type the response
+      const res: Application = await cobalt.getApp(slug); // Explicitly type the response
       setApp(res);
     } catch (err: unknown) {
       console.error("Error fetching app:", err);
@@ -45,13 +45,13 @@ const useFetchSingleApp = (slug: string) => {
     } finally {
       setLoading(false);
     }
-  }, [Cobalt, slug]);
+  }, [cobalt, slug]);
 
   useEffect(() => {
-    if (Cobalt && slug) {
+    if (cobalt && slug) {
       fetchApp();
     }
-  }, [Cobalt, slug, fetchApp]);
+  }, [cobalt, slug, fetchApp]);
 
   return { app, loading, error, refetch: fetchApp };
 };

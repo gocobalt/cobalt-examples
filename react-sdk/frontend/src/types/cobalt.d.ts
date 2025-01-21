@@ -1,0 +1,1 @@
+declare module '@cobaltio/react-cobalt-js';

@@ -23,41 +23,35 @@
  *     { id: 'workflow-2', enabled: false, fields: { step: 'pending' } }
  *   ]
  * };
- * const updatedConfig = await Cobalt.updateConfig(updatePayload);
+ * const updatedConfig = await cobalt.updateConfig(updatePayload);
  */
 
+import { Config } from "@/components/Config/types";
 import { WorkflowPayload } from "@/types/cobalt";
+import { Cobalt } from "@cobaltio/cobalt-js";
 
 export const updateConfig = async (
-  Cobalt: any,
-  workflowData: WorkflowPayload[],
+  cobalt: Cobalt,
+  workflowPayload: WorkflowPayload[],
   slug: string,
-  formData,
-  setConfigInfo: React.Dispatch<React.SetStateAction<any>>,
-  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>
+  appInputData: {[key: string]: any},
+  onUpdate?: (configInfo: Config) => void,
+  onError?: () => void
 ) => {
   try {
-    const workflowPayload: WorkflowPayload[] = workflowData.map((workflow) => ({
-      enabled: workflow.enabled,
-      fields: workflow.fields,
-      id: workflow.id,
-    }));
-
     const payload = {
-      fields: formData.fields || {},
+      fields: appInputData || {},
       workflows: workflowPayload,
       slug,
     };
 
-    console.log("config payload is: ", payload);
-
-    const res = await Cobalt.updateConfig(payload);
+    const res = await cobalt.updateConfig(payload);
     if (res) {
       console.log("Config updated successfully:", res);
-      setConfigInfo(res);
-      setIsModalOpen(false);
+      if (typeof(onUpdate) === 'function') onUpdate(res)
     }
   } catch (err) {
     console.error("Failed to update config:", err);
+    if (typeof(onError) === 'function') onError()
   }
 };

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Method } from "@/types/cobalt";
+import { ApiAction } from "@/types/cobalt";
 
 interface InfoCardProps {
-  method: Method;
+  method: ApiAction;
 }
 
 const InfoCard: React.FC<InfoCardProps> = ({ method }) => {

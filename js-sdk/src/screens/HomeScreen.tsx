@@ -4,7 +4,7 @@ import useFetchApps from "@/hooks/useFetchApps";
 import { Application } from "@cobaltio/cobalt-js";
 import Image from "next/image";
 import Link from "next/link";
-import InfoCard from "@/components/InfoCard";
+import InfoCard from "@/components/ui/InfoCard";
 import { apiActions } from "@/utils/apiActions";
 
 const HomeScreen: React.FC = () => {

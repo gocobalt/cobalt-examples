@@ -7,18 +7,22 @@
  *
  * @example
  * // Example of disconnecting from an application
- * await Cobalt.disconnect('my-app');
+ * await cobalt.disconnect('my-app');
  */
 
+import { Cobalt } from "@cobaltio/cobalt-js";
+
 export const handleDisconnect = async (
-  Cobalt: any,
+  cobalt: Cobalt,
   slug: string,
-  setIsConnected: React.Dispatch<React.SetStateAction<boolean>>
+  onDisconnect: () => void,
+  onError: () => void
 ) => {
   try {
-    await Cobalt.disconnect(slug);
-    setIsConnected(false);
+    await cobalt.disconnect(slug);
+    onDisconnect()
   } catch (err) {
+    if (typeof(onError) === 'function') onError()
     console.error("Disconnection Failed:", err);
   }
 };

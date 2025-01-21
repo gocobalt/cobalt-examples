@@ -7,11 +7,12 @@ import {
 import Modal from "./components/Modal";
 import { useSessionToken } from "./hooks/useSessionToken";
 import { BASE_URL } from "./utils/const";
+import { Application } from "@cobaltio/cobalt-js";
 
 const App = () => {
   const { token, isLoading } = useSessionToken();
   const [apps, setApps] = useState([]);
-  const [selectedApp, setSelectedApp] = useState(null);
+  const [selectedApp, setSelectedApp] = useState<Application>();
 
   /**
    * @route   GET https://api.gocobalt.io/api/v2/public/application
@@ -58,12 +59,12 @@ const App = () => {
         <h1 className="text-2xl mb-6 m-4 font-bold">App List</h1>
 
         {/* Modal to show when an app is selected */}
-        <Modal isOpen={!!selectedApp} onClose={() => setSelectedApp(null)}>
+        <Modal isOpen={!!selectedApp} onClose={() => setSelectedApp(undefined)}>
           <CobaltProvider
             baseApi="https://api.gocobalt.io"
             sessionToken={token}
           >
-            <div className="p-4">
+            <div className="p-4 max-h-[70vh] overflow-y-auto">
               <CobaltConfig
                 slug={selectedApp?.slug}
                 style={{
@@ -72,7 +73,7 @@ const App = () => {
                 }}
               />
               <button
-                onClick={() => setSelectedApp(null)}
+                onClick={() => setSelectedApp(undefined)}
                 className="mt-4 text-sm bg-red-100 text-red-800 px-3 py-1 rounded-full"
               >
                 Close
